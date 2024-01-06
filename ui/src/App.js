@@ -7,10 +7,17 @@ const App = () => {
   const download = async () => {
     try {
       const response = await axios.post("http://localhost:5000", { link: urlLink });
-      
-      
+      const array = response.data;
+      array.forEach((item) => {
+        const link = document.createElement("a");
+        link.href = item.url;
+        link.download = item.title;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
     } catch (err) {
-      console.log(err);
+      console.error("Download failed:", err);
     }
   };
 
