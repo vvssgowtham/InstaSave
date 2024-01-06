@@ -8,7 +8,13 @@ const cors = require("cors");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors());
+app.use(cors(
+  {
+    origin : "https://instasave-olive.vercel.app",
+    methods : ["GET","POST"],
+    credentials : true
+  }
+));
 
 app.post("/", async (req, res) => {
   const link = req.body.link;
