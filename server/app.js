@@ -11,12 +11,12 @@ app.use(bodyParser.json());
 app.use(cors(
   {
     origin : "https://instasave-olive.vercel.app",
-    methods : ["GET","POST"],
+    methods : ["GET","POST","PUT","DELETE"],
     credentials : true
   }
 ));
 
-app.post("/", async (req, res) => {
+app.post("/download", async (req, res) => {
   const link = req.body.link;
   try {
     const response = await axios.request({

@@ -9,7 +9,7 @@ const App = () => {
   const download = async () => {
     try {
       setLoading(true);
-      const response = await axios.post("https://instasave.onrender.com", {
+      const response = await axios.post("https://instasave.onrender.com/download", {
         link: urlLink,
       });
       const array = response.data;
