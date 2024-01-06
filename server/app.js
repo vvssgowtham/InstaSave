@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
@@ -19,9 +20,8 @@ app.post("/", async (req, res) => {
         url: link,
       },
       headers: {
-        "X-RapidAPI-Key": "e84d3c38a2msh74ab9345b56b322p170214jsn43efe8a07ad1",
-        "X-RapidAPI-Host":
-          "instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com",
+        "X-RapidAPI-Key": process.env.key,
+        "X-RapidAPI-Host":process.env.host,
       },
     });
     return res.json(response.data);
