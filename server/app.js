@@ -8,26 +8,26 @@ const cors = require("cors");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors(
-  {
+app.use(
+  cors({
     origin : "https://instasave-olive.vercel.app",
-    methods : ["GET","POST","PUT","DELETE"],
-    credentials : true
-  }
-));
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
 app.post("/download", async (req, res) => {
   const link = req.body.link;
   try {
     const response = await axios.request({
-      method: 'GET',
-  url: 'https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/',
-  params: {
-    url: link
-  },
+      method: "GET",
+      url: "https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/",
+      params: {
+        url: link,
+      },
       headers: {
         "X-RapidAPI-Key": process.env.key,
-        "X-RapidAPI-Host":process.env.host,
+        "X-RapidAPI-Host": process.env.host,
       },
     });
     return res.json(response.data);
