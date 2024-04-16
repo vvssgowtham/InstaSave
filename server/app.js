@@ -20,11 +20,11 @@ app.post("/download", async (req, res) => {
   const link = req.body.link;
   try {
     const response = await axios.request({
-      method: "GET",
-      url: "https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/",
-      params: {
-        url: link,
-      },
+      method: 'GET',
+  url: 'https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/',
+  params: {
+    url: link
+  },
       headers: {
         "X-RapidAPI-Key": process.env.key,
         "X-RapidAPI-Host":process.env.host,
