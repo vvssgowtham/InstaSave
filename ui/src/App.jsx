@@ -16,7 +16,7 @@ const App = () => {
       array.forEach((item) => {
         const link = document.createElement("a");
         link.href = item.url;
-        link.download = item.title;
+        link.download = item.url;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
