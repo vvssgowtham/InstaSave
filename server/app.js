@@ -32,7 +32,6 @@ app.post("/download", async (req, res) => {
   };
   try {
     const response = await axios.request(options);
-    console.log(response.data);
     return res.json(response.data);
   } catch (err) {
     return res.status(err.response.status).json({ message: err.response.data });
