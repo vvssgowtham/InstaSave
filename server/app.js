@@ -18,18 +18,21 @@ app.use(
 
 app.post("/download", async (req, res) => {
   const link = req.body.link;
+  console.log(link);
+  const options = {
+    method: 'GET',
+    url: 'https://instagram-post-reels-stories-downloader.p.rapidapi.com/instagram/',
+    params: {
+      url: link
+    },
+    headers: {
+      'X-RapidAPI-Key': process.env.key,
+      'X-RapidAPI-Host': process.env.host
+    }
+  };
   try {
-    const response = await axios.request({
-      method: "GET",
-      url: "https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/",
-      params: {
-        url: link,
-      },
-      headers: {
-        "X-RapidAPI-Key": process.env.key,
-        "X-RapidAPI-Host": process.env.host,
-      },
-    });
+    const response = await axios.request(options);
+    console.log(response.data);
     return res.json(response.data);
   } catch (err) {
     return res.status(err.response.status).json({ message: err.response.data });

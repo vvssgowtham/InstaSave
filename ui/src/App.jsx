@@ -12,11 +12,11 @@ const App = () => {
       const response = await axios.post("https://instasave-server.onrender.com/download", {
         link: urlLink,
       });
-      const array = response.data;
+      const array = response.data.result;
       array.forEach((item) => {
         const link = document.createElement("a");
         link.href = item.url;
-        link.download = item.url;
+        link.download = item.url.split('/').pop(); // Use the file name from the url for the download attribute
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
