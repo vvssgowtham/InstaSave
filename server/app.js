@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin : "https://instasave-olive.vercel.app",
+    origin: "https://instasave-olive.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -21,13 +21,13 @@ app.post("/download", async (req, res) => {
   console.log(link);
   const options = {
     method: 'GET',
-    url: 'https://instagram-post-reels-stories-downloader.p.rapidapi.com/instagram/',
+    url: 'https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/',
     params: {
       url: link
     },
     headers: {
-      'X-RapidAPI-Key': process.env.key,
-      'X-RapidAPI-Host': process.env.host
+      'x-rapidapi-key': process.env.RAPIDAPI_KEY,
+      'x-rapidapi-host': process.env.RAPIDAPI_HOST
     }
   };
   try {
