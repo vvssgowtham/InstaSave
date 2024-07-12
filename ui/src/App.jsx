@@ -5,6 +5,7 @@ import "./app.css";
 const App = () => {
   const [urlLink, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [mediaInfo, setMediaInfo] = useState(null);
 
   const download = async () => {
@@ -56,12 +57,6 @@ const App = () => {
               {loading ? "Loading..." : "Download"}
             </button>
           </div>
-          {mediaInfo && (
-            <div className="mt-4">
-              <h2 className="text-2xl mb-2">{mediaInfo.title}</h2>
-              <img src={mediaInfo.thumb} alt="Thumbnail" className="w-full rounded mb-2" />
-            </div>
-          )}
         </div>
       </div>
     </>
