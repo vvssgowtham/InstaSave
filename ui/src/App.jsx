@@ -5,27 +5,28 @@ import "./app.css";
 const App = () => {
   const [urlLink, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mediaInfo, setMediaInfo] = useState(null);
 
   const download = async () => {
     try {
       setLoading(true);
+      setMediaInfo(null);
       const response = await axios.post("https://instasave-server.onrender.com/download", {
         link: urlLink,
       });
-      const array = response.data;
-      array.forEach((item) => {
-        const link = document.createElement("a");
-        link.href = item.url;
-        link.download = item.url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setUrl("");
-      });
+      const mediaArray = response.data;
+      setMediaInfo(mediaArray[0]);
+      const link = document.createElement("a");
+      link.href = mediaArray[0].url;
+      link.download = mediaArray[0].url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setUrl("");
     } catch (err) {
       console.error("Download failed:", err);
     } finally {
-      setLoading(false); // Set loading to false when the request is complete
+      setLoading(false);
     }
   };
 
@@ -34,7 +35,7 @@ const App = () => {
       <div className="lg:flex lg:justify-center lg:items-center overall">
         <div className="form-container lg:w-1/2 xl:w-1/3 p-6">
           <div className="text-center">
-            <h1 className="text-4xl mb-4" style={{fontFamily: 'arial'}}>📸InstaSave</h1>
+            <h1 className="text-4xl mb-4" style={{ fontFamily: "arial" }}>📸InstaSave</h1>
           </div>
           <div className="mb-4">
             <input
@@ -47,14 +48,20 @@ const App = () => {
             />
           </div>
           <div>
-          <button
+            <button
               onClick={download}
               className="button w-full bg-green-500 text-white p-3 rounded cursor-pointer hover:bg-green-600"
-              disabled={loading} // Disable button while loading
+              disabled={loading}
             >
               {loading ? "Loading..." : "Download"}
             </button>
           </div>
+          {mediaInfo && (
+            <div className="mt-4">
+              <h2 className="text-2xl mb-2">{mediaInfo.title}</h2>
+              <img src={mediaInfo.thumb} alt="Thumbnail" className="w-full rounded mb-2" />
+            </div>
+          )}
         </div>
       </div>
     </>
