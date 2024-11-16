@@ -18,23 +18,27 @@ app.use(
 
 app.post("/download", async (req, res) => {
   const link = req.body.link;
-  console.log(link);
+
   const options = {
-    method: 'GET',
-    url: 'https://instagram-downloader-download-instagram-videos-stories1.p.rapidapi.com/',
-    params: {
-      url: link
-    },
+    method: "POST",
+    url: "https://instagram-bulk-scraper-latest.p.rapidapi.com/media_download_from_url",
     headers: {
-      'x-rapidapi-key': process.env.RAPIDAPI_KEY,
-      'x-rapidapi-host': process.env.RAPIDAPI_HOST
-    }
+      "x-rapidapi-key": process.env.RAPIDAPI_KEY,
+      "x-rapidapi-host": process.env.RAPIDAPI_HOST,
+      "Content-Type": "application/json",
+    },
+    data: {
+      url: link,
+    },
   };
+
   try {
     const response = await axios.request(options);
-    return res.json(response.data);
-  } catch (err) {
-    return res.status(err.response.status).json({ message: err.response.data });
+    console.log("API response:", response.data);
+    res.json({ download_url: response.data.data.main_media_hd });
+  } catch (error) {
+    console.error("Error in API request:", error);
+    res.status(500).send("Error downloading media");
   }
 });
 

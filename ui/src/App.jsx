@@ -12,16 +12,13 @@ const App = () => {
       const response = await axios.post("https://instasave-server.onrender.com/download", {
         link: urlLink,
       });
-      const array = response.data;
-      array.forEach((item) => {
-        const link = document.createElement("a");
-        link.href = item.url;
-        link.download = item.url;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      console.log("Backend response:", response.data); // Log the response data
+      if (response.data && response.data.download_url) {
+        window.location.href = response.data.download_url;
         setUrl("");
-      });
+      } else {
+        console.error("Invalid response from API:", response.data);
+      }
     } catch (err) {
       console.error("Download failed:", err);
     } finally {
@@ -34,7 +31,9 @@ const App = () => {
       <div className="lg:flex lg:justify-center lg:items-center overall">
         <div className="form-container lg:w-1/2 xl:w-1/3 p-6">
           <div className="text-center">
-            <h1 className="text-4xl mb-4" style={{fontFamily: 'arial'}}>📸InstaSave</h1>
+            <h1 className="text-4xl mb-4" style={{ fontFamily: "arial" }}>
+              📸InstaSave
+            </h1>
           </div>
           <div className="mb-4">
             <input
@@ -47,7 +46,7 @@ const App = () => {
             />
           </div>
           <div>
-          <button
+            <button
               onClick={download}
               className="button w-full bg-green-500 text-white p-3 rounded cursor-pointer hover:bg-green-600"
               disabled={loading} // Disable button while loading
