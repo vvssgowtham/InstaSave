@@ -13,8 +13,8 @@ const App = () => {
         link: urlLink,
       });
       console.log("Backend response:", response.data); // Log the response data
-      if (response.data && response.data.download_url) {
-        window.location.href = response.data.download_url;
+      if (response.data && response.data.videoUrl) {
+        window.location.href = response.data.videoUrl;
         setUrl("");
       } else {
         console.error("Invalid response from API:", response.data);
